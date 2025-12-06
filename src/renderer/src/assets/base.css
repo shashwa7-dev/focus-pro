@@ -1,0 +1,84 @@
+:root {
+  /* Base tones */
+  --ev-c-white: #ffffff;
+  --ev-c-white-soft: #f8f8f5;
+  --ev-c-white-mute: #e8e8e2;
+
+  --ev-c-black: #0b0b0c;
+  --ev-c-black-soft: #141415;
+  --ev-c-black-mute: #1d1d1f;
+
+  /* Neutral grays */
+  --ev-c-gray-1: #3a3a3d;
+  --ev-c-gray-2: #2d2d30;
+  --ev-c-gray-3: #232325;
+
+  /* 🔶 Accent: orange-gold glow */
+  --ev-c-accent: #ff9f43;
+  --ev-c-accent-soft: #e67e22;
+  --ev-c-accent-glow: rgba(255, 159, 67, 0.25);
+
+  /* Text */
+  --ev-c-text-1: rgba(255, 240, 220, 0.92);
+  --ev-c-text-2: rgba(240, 220, 200, 0.65);
+  --ev-c-text-3: rgba(220, 200, 180, 0.4);
+
+  /* Buttons */
+  --ev-button-alt-border: rgba(255, 255, 255, 0.1);
+  --ev-button-alt-text: var(--ev-c-text-1);
+  --ev-button-alt-bg: var(--ev-c-gray-2);
+  --ev-button-alt-hover-border: rgba(255, 255, 255, 0.25);
+  --ev-button-alt-hover-text: var(--ev-c-white);
+  --ev-button-alt-hover-bg: var(--ev-c-gray-1);
+
+  /* 🟢 Status colors (cool counterbalance) */
+  --ev-c-success: #10b981; /* teal-green */
+  --ev-c-warning: #facc15; /* golden yellow */
+  --ev-c-error: #f87171; /* soft red */
+  --ev-c-info: #22d3ee; /* cyan highlight for “active” or focus */
+
+  /* Glow effects */
+  --ev-glow-accent: 0 0 10px var(--ev-c-accent-glow);
+  --ev-glow-success: 0 0 8px rgba(16, 185, 129, 0.25);
+  --ev-glow-error: 0 0 8px rgba(248, 113, 113, 0.25);
+  --ev-glow-info: 0 0 8px rgba(34, 211, 238, 0.25);
+}
+
+:root {
+  --color-background: var(--ev-c-black);
+  --color-background-soft: var(--ev-c-black-soft);
+  --color-background-mute: var(--ev-c-black-mute);
+
+  --color-text: var(--ev-c-text-1);
+  --color-text-muted: var(--ev-c-text-2);
+  --color-accent: var(--ev-c-accent);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+ul {
+  list-style: none;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  background: var(--color-background);
+  line-height: 1.4;
+  font-weight: 400;
+  font-family: 'Bitcount Prop Single', monospace;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
