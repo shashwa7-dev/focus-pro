@@ -4,7 +4,8 @@ import { electronAPI } from '@electron-toolkit/preload'
 // Custom APIs for renderer
 const api = {
   startSession: (sites: string[]) => ipcRenderer.invoke('session:start', sites),
-  endSession: () => ipcRenderer.invoke('session:end')
+  endSession: () => ipcRenderer.invoke('session:end'),
+  notify: (data: { title: string; body: string }) => ipcRenderer.invoke('notify', data)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

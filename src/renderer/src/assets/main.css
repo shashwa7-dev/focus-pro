@@ -1,7 +1,7 @@
 @import './base.css';
 
 .app {
-  width: 100%;
+  width: 400px;
   padding: 20px;
   font-size: 1rem;
   color: var(--color-text);
@@ -36,12 +36,13 @@
 /* --- Panels --- */
 .panel {
   margin-bottom: 14px;
-  max-width: 420px;
+  max-width: 400px;
   width: 100%;
 }
 .footer-panel {
   font-size: 0.9rem;
   color: var(--ev-c-text-2);
+  overflow-x: auto;
 }
 
 /* --- Labels & Inputs --- */
@@ -93,14 +94,13 @@ textarea {
 }
 
 button {
-  flex: 1;
   background: var(--ev-c-accent);
   color: var(--ev-c-black);
   border: 1px solid var(--ev-c-accent-soft);
   font-family: 'Bitcount Prop Single', monospace;
   font-weight: 600;
   letter-spacing: 1px;
-  padding: 9px 14px;
+  padding: 0.5rem;
   cursor: pointer;
   text-transform: uppercase;
   font-size: 1rem;
@@ -114,13 +114,41 @@ button:hover {
   color: var(--ev-c-white);
   box-shadow: 0 0 10px var(--ev-c-accent-glow);
 }
-
+button:active {
+  transform: translateY(1px) scale(0.95);
+  box-shadow: 0 0 4px var(--ev-c-accent-glow);
+  filter: brightness(0.9);
+  transition: all 0.05s ease-in;
+}
 button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
   box-shadow: none;
 }
+.buttons,
+button {
+  flex: 1;
+}
 
+.sound-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem;
+  display: flex;
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+.sound-btn[data-running='true'] {
+  opacity: 1;
+}
+
+.sound-btn[data-running='false'] {
+  opacity: 0;
+  pointer-events: none;
+}
 /* --- Statuses --- */
 .status {
   font-weight: 500;
@@ -146,8 +174,8 @@ button:disabled {
   border: 1px solid var(--ev-c-error);
   color: var(--ev-c-error);
   background: rgba(239, 68, 68, 0.08);
-  padding: 7px;
-  font-size: 1rem;
+  padding: 4px;
+  font-size: 0.6rem;
   margin-bottom: 10px;
   width: 100%;
   max-width: 420px;
@@ -158,9 +186,50 @@ button:disabled {
 /* --- Footer --- */
 .footer {
   text-align: center;
-  margin-top: 24px;
+  margin-top: 12px;
   opacity: 0.6;
   color: var(--ev-c-text-1);
   letter-spacing: 1px;
   font-weight: 300;
+}
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+  display: flex;
+}
+
+.timer-circle {
+  width: 200px;
+  height: 200px;
+  transform: rotate(-90deg);
+}
+
+.timer-bg {
+  fill: none;
+  stroke: #333;
+  stroke-width: 10;
+  opacity: 0.3;
+}
+
+.timer-progress {
+  fill: none;
+  stroke: var(--ev-c-accent);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.timer-text {
+  position: absolute;
+  font-size: 2rem;
+  margin: auto;
+}
+
+.timer-status {
+  opacity: 0.7;
+  letter-spacing: 1px;
 }

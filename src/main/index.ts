@@ -1,13 +1,14 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
+import { app, shell, BrowserWindow, ipcMain, Notification } from 'electron'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { blockWebsites, restoreHosts } from './hostManager'
+import { blockWebsites, disableSystemProxy } from './hostManager'
+import { join } from 'path'
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
+    minWidth: 500,
+    width: 500,
     height: 670,
     show: false,
     autoHideMenuBar: true,
@@ -75,25 +76,37 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and require them here.
 
 // Restore hosts on quit
-app.on("before-quit", async () => {
-  await restoreHosts();
-});
+app.on('before-quit', async () => {
+  await disableSystemProxy()
+})
 
 // IPC handlers
-ipcMain.handle("session:start", async (_e, sites: string[]) => {
+ipcMain.handle('session:start', async (_e, sites: string[]) => {
   try {
-    await blockWebsites(sites);
-    return { ok: true };
+    await blockWebsites(sites)
+    return { ok: true }
   } catch (err: any) {
-    return { ok: false, error: err.message };
+    return { ok: false, error: err.message }
   }
-});
+})
 
-ipcMain.handle("session:end", async () => {
+ipcMain.handle('session:end', async () => {
   try {
-    await restoreHosts();
-    return { ok: true };
+    await disableSystemProxy()
+    return { ok: true }
   } catch (err: any) {
-    return { ok: false, error: err.message };
+    return { ok: false, error: err.message }
   }
-});
+})
+
+ipcMain.handle('notify', async (_, { title, body }) => {
+  console.log('🔔 Notification invoked from renderer:', title, body)
+  try {
+    const n = new Notification({ title, body })
+    n.show()
+    n.on('show', () => console.log('✅ Notification shown'))
+    n.on('failed', (_, err) => console.error('❌ Notification failed:', err))
+  } catch (err) {
+    console.error('❌ Error creating notification:', err)
+  }
+})
