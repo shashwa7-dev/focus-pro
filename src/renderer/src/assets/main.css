@@ -222,6 +222,7 @@ button {
   padding: 0.25rem;
   display: flex;
   opacity: 0;
+  visibility: hidden;
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
@@ -229,11 +230,13 @@ button {
 
 .vol-btn[data-running='true'] {
   opacity: 1;
+  visibility: visible;
 }
 
 .vol-btn[data-running='false'] {
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;
 }
 
 .sound-menu {
@@ -242,6 +245,7 @@ button {
   right: 1rem;
   display: flex;
   opacity: 0;
+  visibility: hidden;
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
@@ -251,6 +255,7 @@ button {
 }
 .sound-menu[data-running='false'] {
   opacity: 1;
+  visibility: visible;
 }
 .music-btn {
   display: flex;
@@ -260,6 +265,7 @@ button {
 .sound-menu[data-running='true'] {
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;
 }
 
 .music-dropdown {
@@ -299,6 +305,7 @@ button {
 .volume-control {
   display: flex;
   background: var(--ev-c-black-soft);
+  border: 1px solid var(--ev-c-gray-1);
   padding: 0.5rem;
   border-radius: 6px;
   flex-direction: column;
